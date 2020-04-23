@@ -78,7 +78,7 @@ Bytes.prototype.revcomp = function()
 		this[this.length - i - 1] = Bytes.rctab[this[i]];
 		this[i] = Bytes.rctab[tmp];
 	}
-	if (this.length>>1)
+	if (this.length&1)
 		this[this.length>>1] = Bytes.rctab[this[this.length>>1]];
 }
 
@@ -283,7 +283,7 @@ function bwa_postalt(args)
 	// process SAM
 	var buf2 = [], hla = {};
 	file = args.length - getopt.ind >= 2? new File(args[getopt.ind+1]) : new File();
-	while (file.readline(buf) >= 0) {
+	while (file.readline(buf) > 0) {
 		var m, line = buf.toString();
 
 		if (line.charAt(0) == '@') { // print and then skip the header line
